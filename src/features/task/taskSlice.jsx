@@ -6,27 +6,23 @@ import { createSlice } from "@reduxjs/toolkit";
 Типизация с TypeScript: Строго типизирует созданные действия и их полезную нагрузку (payload). 
  */
 const initialState = {
-  value: 0,
+  tasks: [],
 };
 
-export const counterReducer = createSlice({
-  name: "counter",
+export const tasksReducer = createSlice({
+  name: "tasks",
 
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
+    addTask: (state, action) => {
+      state.tasks.push(action.payload);
     },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    removeTask: (state, action) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } =
-  counterReducer.actions;
+export const { addTask, removeTask } = tasksReducer.actions;
 
-export default counterReducer.reducer;
+export default tasksReducer.reducer;
